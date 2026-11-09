@@ -12,6 +12,11 @@ void pp_std_print_string(const pp_string_t* str) {
     fflush(stdout);
 }
 
+void pp_std_print_char(uint8_t c) {
+    fwrite(&c, sizeof(char), 1, stdout);
+    fflush(stdout);
+}
+
 void pp_std_print_int64(int64_t val) {
     printf("%" PRId64, val);
 }
