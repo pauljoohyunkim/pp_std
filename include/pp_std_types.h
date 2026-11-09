@@ -23,6 +23,7 @@ typedef struct pp_list {
     void* data;
     uint64_t len;
     uint64_t cap;
+    uint64_t elem_size;
 } pp_list_t;
 
 #ifdef __cplusplus
