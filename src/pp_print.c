@@ -3,7 +3,11 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-void pp_std_print_string(const pp_string_t* str) {
+void pp_std_print_string(pp_string_t str) {
+    pp_std_print_string_ref(&str);
+}
+
+void pp_std_print_string_ref(const pp_string_t* str) {
     if (!str) return;
     if (str->len == 0) return;
     if (!str->ptr) return;
