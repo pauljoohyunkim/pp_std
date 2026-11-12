@@ -1,6 +1,7 @@
 #include "pp_std_types.h"
 #include "pp_print.h"
 #include <stdio.h>
+#include <string.h>
 #include <inttypes.h>
 
 void pp_std_print_string(pp_string_t str) {
@@ -13,6 +14,13 @@ void pp_std_print_string_ref(const pp_string_t* str) {
     if (!str->ptr) return;
     
     fwrite(str->ptr, sizeof(char), str->len, stdout);
+    fflush(stdout);
+}
+
+void pp_std_print_c_str(const uint8_t* str) {
+    if (!str) return;
+
+    fwrite(str, sizeof(char), strlen(str), stdout);
     fflush(stdout);
 }
 
