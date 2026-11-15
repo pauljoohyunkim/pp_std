@@ -40,3 +40,11 @@ void pp_std_print_uint64(uint64_t val) {
 void pp_std_print_float(float val) {
     printf("%f", val);
 }
+
+int32_t pp_std_input_char(void) {
+    int c = getchar();
+    if (c == EOF) {
+        return -1;
+    }
+    return c;
+}

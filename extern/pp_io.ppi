@@ -5,3 +5,4 @@ extern func pp_std_print_char :: (c :: uint8) -> void;
 extern func pp_std_print_int64 :: (val :: int64) -> void;
 extern func pp_std_print_uint64 :: (val :: uint64) -> void;
 extern func pp_std_print_float :: (val :: float) -> void;
+extern func pp_std_input_char :: () -> int32;
