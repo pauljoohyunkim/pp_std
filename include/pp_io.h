@@ -1,5 +1,5 @@
-#ifndef PP_PRINT_H
-#define PP_PRINT_H
+#ifndef PP_IO_H
+#define PP_IO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,8 +16,11 @@ void pp_std_print_uint64(uint64_t val);
 void pp_std_print_float(float val);
 int32_t pp_std_input_char(void);
 
+int32_t pp_std_fd_open(const pp_string_t* str, int32_t flags, int32_t mode);
+void pp_std_fd_close(int32_t fd);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* PP_PRINT_H */
+#endif /* PP_IO_H */
