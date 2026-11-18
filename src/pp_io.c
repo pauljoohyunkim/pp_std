@@ -65,3 +65,13 @@ int32_t pp_std_fd_open(const pp_string_t* str, int32_t flags, int32_t mode) {
 }
 
 void pp_std_fd_close(int32_t fd) { close(fd); }
+
+int32_t pp_std_fd_read(int32_t* fd, uint8_t* buf, uint32_t N) {
+    if (!fd || *fd < 0) return -1;
+    if (!buf) return -1;
+    if (N == 0) return 0;
+
+    ssize_t ret = read(*fd, buf, N);
+
+    return ret;
+}

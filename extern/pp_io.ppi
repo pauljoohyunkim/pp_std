@@ -10,3 +10,4 @@ extern func pp_std_input_char :: () -> int32;
 handle PP_STD_FD :: int32 drop pp_std_fd_close;
 extern func pp_std_fd_open :: (str :: const string&, flags :: int32, mode :: int32) -> PP_STD_FD;
 extern func pp_std_fd_close :: (fd :: PP_STD_FD) -> void;
+extern func pp_std_fd_read :: (fd :: const PP_STD_FD&, buf :: ptr[uint8], N :: uint32_t) -> int32;
