@@ -75,3 +75,12 @@ int32_t pp_std_fd_read(int32_t* fd, uint8_t* buf, uint32_t N) {
 
     return ret;
 }
+
+int32_t pp_std_fd_write(int32_t* fd, const uint8_t* buf, uint32_t count) {
+    if (!fd || *fd < 0 || !buf) return -1;
+    if (count == 0) return 0;
+
+    ssize_t ret = write(*fd, buf, count);
+
+    return ret;
+}
