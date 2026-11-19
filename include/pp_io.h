@@ -16,10 +16,12 @@ void pp_std_print_uint64(uint64_t val);
 void pp_std_print_float(float val);
 int32_t pp_std_input_char(void);
 
-int32_t pp_std_fd_open(const pp_string_t* str, int32_t flags, int32_t mode);
-void pp_std_fd_close(int32_t fd);
-int32_t pp_std_fd_read(int32_t* fd, uint8_t* buf, uint32_t N);
-int32_t pp_std_fd_write(int32_t* fd, const uint8_t* buf, uint32_t count);
+typedef int32_t PP_STD_FD;
+PP_STD_FD pp_std_fd_open(const pp_string_t* str, int32_t flags, int32_t mode);
+void pp_std_fd_close(PP_STD_FD fd);
+int64_t pp_std_fd_read(PP_STD_FD* fd, uint8_t* buf, uint64_t N);
+int64_t pp_std_fd_write(PP_STD_FD* fd, const uint8_t* buf, uint64_t count);
+int64_t pp_std_fd_seek(PP_STD_FD* fd, uint64_t offset, int32_t whence);
 
 #ifdef __cplusplus
 }
