@@ -92,3 +92,52 @@ int64_t pp_fd_seek(PP_FD* fd, uint64_t offset, PP_Whence whence) {
 
     return ret;
 }
+
+PP_File pp_file_open(const pp_string_t* str, PP_File_OpenMode mode) {
+    char* buf = NULL;
+    if (!str) return NULL;
+    if (str->len == 0) return NULL;
+    if (!str->ptr) return NULL;
+
+    PP_File fp = NULL;
+
+    buf = malloc(str->len + 1);
+    if (!buf) return NULL;
+
+    memcpy(buf, str->ptr, str->len);
+    buf[str->len] = '\0';
+
+    const char* fopen_c_open_mode = NULL;
+    switch (mode) {
+        case PP_FOPEN_READ_ONLY:
+            fopen_c_open_mode = "rb";
+            break;
+        case PP_FOPEN_WRITE_ONLY:
+            fopen_c_open_mode = "wb";
+            break;
+        case PP_FOPEN_APPEND:
+            fopen_c_open_mode = "ab";
+            break;
+        case PP_FOPEN_READ_WRITE:
+            fopen_c_open_mode = "rb+";
+            break;
+        case PP_FOPEN_READ_WRITE_TRUNCATE:
+            fopen_c_open_mode = "wb+";
+            break;
+        case PP_FOPEN_READ_APPEND:
+            fopen_c_open_mode = "ab+";
+            break;
+        default:
+            break;
+
+    }
+    fp = fopen(buf, fopen_c_open_mode);
+    free(buf);
+
+    return fp;
+}
+
+void pp_file_close(PP_File fp) {
+    if (!fp) return;
+    (void)fclose(fp);
+}

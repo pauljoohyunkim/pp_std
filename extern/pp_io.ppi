@@ -25,3 +25,15 @@ extern func pp_fd_close :: (fd :: int32) -> void;
 extern func pp_fd_read :: (fd :: const PP_FD&, buf :: ptr[uint8], N :: uint64) -> int64;
 extern func pp_fd_write :: (fd :: const PP_FD&, buf :: ptr[const uint8], N :: uint64) -> int64;
 extern func pp_fd_seek :: (fd :: const PP_FD&, offset :: uint64, whence :: PP_Whence) -> int64;
+
+enum PP_File_OpenMode :: uint32 {
+    PP_FOPEN_READ_ONLY = 0u,
+    PP_FOPEN_WRITE_ONLY = 1u,
+    PP_FOPEN_APPEND = 2u,
+    PP_FOPEN_READ_WRITE = 3u,
+    PP_FOPEN_READ_WRITE_TRUNCATE = 4u,
+    PP_FOPEN_READ_APPEND = 5u,
+}
+handle PP_File :: ptr[void] drop pp_file_close;
+extern func pp_file_open :: (str :: const string&, mode :: PP_File_OpenMode) -> PP_File;
+extern func pp_file_close :: (fp :: ptr[void]) -> void;
