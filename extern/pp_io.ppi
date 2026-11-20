@@ -37,3 +37,5 @@ enum PP_File_OpenMode :: uint32 {
 handle PP_File :: ptr[void] drop pp_file_close;
 extern func pp_file_open :: (str :: const string&, mode :: PP_File_OpenMode) -> PP_File;
 extern func pp_file_close :: (fp :: ptr[void]) -> void;
+extern func pp_file_read :: (fp :: PP_File, buf :: ptr[uint8], N :: uint64) -> uint64;
+extern func pp_file_write :: (fp :: PP_File, buf :: ptr[const uint8], N :: uint64) -> uint64;

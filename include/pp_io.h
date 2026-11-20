@@ -50,6 +50,8 @@ typedef uint32_t PP_File_OpenMode;
 #define PP_FOPEN_READ_WRITE_TRUNCATE 4u
 #define PP_FOPEN_READ_APPEND 5u
 PP_File pp_file_open(const pp_string_t* str, PP_File_OpenMode mode);
+uint64_t pp_file_read(PP_File fp, uint8_t* buffer, uint64_t n);
+uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n);
 void pp_file_close(PP_File fp);
 
 #ifdef __cplusplus

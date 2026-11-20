@@ -141,3 +141,19 @@ void pp_file_close(PP_File fp) {
     if (!fp) return;
     (void)fclose(fp);
 }
+
+uint64_t pp_file_read(PP_File fp, uint8_t* buffer, uint64_t n) {
+    if (!buffer || !fp) return 0;
+    if (n == 0) return 0;
+
+    size_t read_bytes = fread(buffer, sizeof(uint8_t), n, fp);
+    return read_bytes;
+}
+
+uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n) {
+    if (!buffer || !fp) return 0;
+    if (n == 0) return 0;
+
+    size_t write_bytes = fwrite(buffer, sizeof(uint8_t), n, fp);
+    return write_bytes;
+}
