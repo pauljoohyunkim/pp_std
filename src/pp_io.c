@@ -9,9 +9,7 @@
 
 #include "pp_std_types.h"
 
-void pp_print_string(pp_string_t str) { pp_print_string_ref(&str); }
-
-void pp_print_string_ref(const pp_string_t* str) {
+void pp_print_string(const pp_string_t* str) {
     if (!str) return;
     if (str->len == 0) return;
     if (!str->ptr) return;
@@ -44,7 +42,7 @@ int32_t pp_input_char(void) {
     return c;
 }
 
-PP_FD pp_fd_open(const pp_string_t* str, PP_OpenFlags flags, int32_t mode) {
+PP_FD pp_fd_open(const pp_string_t* str, PP_FD_OpenFlags flags, int32_t mode) {
     char* buf = NULL;
     if (!str) return -1;
     if (str->len == 0) return -1;
