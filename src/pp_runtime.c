@@ -1,6 +1,51 @@
 #include "pp_runtime.h"
-#include <stdlib.h>
 
-void pp_abort(void) {
-    abort();
+#include <stdlib.h>
+#include <string.h>
+
+void pp_abort(void) { abort(); }
+
+pp_list_t pp_get_argv(int32_t argc, uint8_t** argv) {
+    pp_string_t* str_arr = NULL;
+    uint8_t* buffer = NULL;
+    pp_list_t arg_list = {0};
+
+    if (argc <= 0 || argv == NULL) { return arg_list; }
+
+    str_arr = (pp_string_t*)calloc((size_t)argc, sizeof(pp_string_t));
+    if (!str_arr) goto error_cleanup;
+
+    for (int32_t i = 0; i < argc; i++) {
+        size_t arg_i_len = argv[i] ? strlen((const char*)argv[i]) : 0;
+
+        /* Keep the NUL terminator so the copy is still usable as a C string.
+         * drop only calls free(), so the extra byte costs nothing. */
+        buffer = (uint8_t*)malloc(arg_i_len + 1);
+        if (!buffer) goto error_cleanup;
+        if (arg_i_len > 0) { memcpy(buffer, argv[i], arg_i_len); }
+        buffer[arg_i_len] = '\0';
+
+        /* Ownership moves into the list element: nullify the source so the
+         * error path cannot free the same buffer twice. */
+        str_arr[i].ptr = buffer;
+        str_arr[i].len = (uint64_t)arg_i_len;
+        buffer = NULL;
+    }
+
+    arg_list.data = str_arr;
+    arg_list.len = (uint64_t)argc;
+    arg_list.cap = (uint64_t)argc;
+    arg_list.elem_size = sizeof(pp_string_t);
+    str_arr = NULL; /* Ownership moved into arg_list. */
+    return arg_list;
+
+error_cleanup:
+    free(buffer);
+    if (str_arr) {
+        /* calloc zeroed the tail, so free() sees NULL for elements not built yet. */
+        for (int32_t i = 0; i < argc; i++) { free((void*)str_arr[i].ptr); }
+    }
+    free(str_arr);
+    pp_abort();
+    return arg_list; /* Unreachable: pp_abort() does not return. */
 }
