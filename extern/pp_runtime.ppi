@@ -1,1 +1,1 @@
-extern func pp_std_abort :: () -> void;
+extern func pp_abort :: () -> void;

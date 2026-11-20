@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-void pp_std_abort(void);
+void pp_abort(void);
 
 #ifdef __cplusplus
 }
