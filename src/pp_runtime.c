@@ -1,6 +1,6 @@
 #include "pp_runtime.h"
 #include <stdlib.h>
 
-void pp_std_abort(void) {
+void pp_abort(void) {
     abort();
 }
