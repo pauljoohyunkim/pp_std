@@ -1,0 +1,41 @@
+// POSIX open(2) access and creation flags (Linux values). Read-only is PP_FD_OpenFlags::none.
+flag PP_FD_OpenFlags :: uint32 {
+    Write = 1u,
+    ReadWrite = 2u,
+    Create = 64u,
+    Exclusive = 128u,
+    Truncate = 512u,
+    Append = 1024u,
+}
+
+// lseek(2) origin selector: offset is measured from the start, the current position, or the end.
+enum PP_Whence :: int32 { Set, Current, End }
+
+extern func pp_print_string :: (str :: const string&) -> void;
+extern func pp_print_c_str :: (str :: ptr[const uint8]) -> void;
+extern func pp_print_char :: (c :: uint8) -> void;
+extern func pp_print_int64 :: (val :: int64) -> void;
+extern func pp_print_uint64 :: (val :: uint64) -> void;
+extern func pp_print_float :: (val :: float) -> void;
+extern func pp_input_char :: () -> int32;
+
+handle PP_FD :: int32 drop pp_fd_close;
+extern func pp_fd_open :: (str :: const string&, flags :: PP_FD_OpenFlags, mode :: int32) -> PP_FD;
+extern func pp_fd_close :: (fd :: int32) -> void;
+extern func pp_fd_read :: (fd :: const PP_FD&, buf :: ptr[uint8], N :: uint64) -> int64;
+extern func pp_fd_write :: (fd :: const PP_FD&, buf :: ptr[const uint8], N :: uint64) -> int64;
+extern func pp_fd_seek :: (fd :: const PP_FD&, offset :: uint64, whence :: PP_Whence) -> int64;
+
+enum PP_File_OpenMode :: uint32 {
+    PP_FOPEN_READ_ONLY = 0u,
+    PP_FOPEN_WRITE_ONLY = 1u,
+    PP_FOPEN_APPEND = 2u,
+    PP_FOPEN_READ_WRITE = 3u,
+    PP_FOPEN_READ_WRITE_TRUNCATE = 4u,
+    PP_FOPEN_READ_APPEND = 5u,
+}
+handle PP_File :: ptr[void] drop pp_file_close;
+extern func pp_file_open :: (str :: const string&, mode :: PP_File_OpenMode) -> PP_File;
+extern func pp_file_close :: (fp :: ptr[void]) -> void;
+extern func pp_file_read :: (fp :: PP_File, buf :: ptr[uint8], N :: uint64) -> uint64;
+extern func pp_file_write :: (fp :: PP_File, buf :: ptr[const uint8], N :: uint64) -> uint64;

@@ -1,0 +1,2 @@
+extern func pp_abort :: () -> void;
+extern func pp_get_argv :: (argc :: int32, argv :: ptr[ptr[uint8]]) -> [string];
