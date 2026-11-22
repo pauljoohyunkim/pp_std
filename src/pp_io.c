@@ -84,7 +84,7 @@ int64_t pp_fd_write(PP_FD* fd, const uint8_t* buf, uint64_t count) {
     return ret;
 }
 
-int64_t pp_fd_seek(PP_FD* fd, uint64_t offset, PP_Whence whence) {
+int64_t pp_fd_seek(PP_FD* fd, int64_t offset, PP_Whence whence) {
     if (!fd || *fd < 0) return -1;
     if (whence < PP_SEEK_SET || whence > PP_SEEK_END) return -1;
 
@@ -156,4 +156,17 @@ uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n) {
 
     size_t write_bytes = fwrite(buffer, sizeof(uint8_t), n, fp);
     return write_bytes;
+}
+
+int32_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence) {
+    if (!fp) return -1;
+    if (whence < PP_SEEK_SET || whence > PP_SEEK_END) return -1;
+
+    return fseek(fp, offset, whence);
+}
+
+int64_t pp_file_tell(PP_File fp) {
+    if (!fp) return -1;
+
+    return ftell(fp);
 }

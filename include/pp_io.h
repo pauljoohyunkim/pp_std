@@ -39,7 +39,7 @@ PP_FD pp_fd_open(const pp_string_t* str, PP_FD_OpenFlags flags, int32_t mode);
 void pp_fd_close(PP_FD fd);
 int64_t pp_fd_read(PP_FD* fd, uint8_t* buf, uint64_t N);
 int64_t pp_fd_write(PP_FD* fd, const uint8_t* buf, uint64_t count);
-int64_t pp_fd_seek(PP_FD* fd, uint64_t offset, PP_Whence whence);
+int64_t pp_fd_seek(PP_FD* fd, int64_t offset, PP_Whence whence);
 
 typedef FILE* PP_File;
 typedef uint32_t PP_File_OpenMode;
@@ -50,9 +50,11 @@ typedef uint32_t PP_File_OpenMode;
 #define PP_FOPEN_READ_WRITE_TRUNCATE 4u
 #define PP_FOPEN_READ_APPEND 5u
 PP_File pp_file_open(const pp_string_t* str, PP_File_OpenMode mode);
+void pp_file_close(PP_File fp);
 uint64_t pp_file_read(PP_File fp, uint8_t* buffer, uint64_t n);
 uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n);
-void pp_file_close(PP_File fp);
+int32_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence);
+int64_t pp_file_tell(PP_File fp);
 
 #ifdef __cplusplus
 }
