@@ -1,0 +1,6 @@
+
+handle PP_AllocBytes :: ptr[uint8] drop pp_alloc_bytes_free;
+extern func pp_alloc_bytes_allocate :: (n :: uint64) -> PP_AllocBytes;
+extern func pp_alloc_bytes_clear_allocate :: (n :: uint64) -> PP_AllocBytes;
+extern func pp_alloc_bytes_reallocate :: (pab :: ptr[PP_AllocBytes], n :: uint64) -> int32;
+extern func pp_alloc_bytes_free :: (ab :: ptr[uint8]) -> void;
