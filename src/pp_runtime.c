@@ -49,3 +49,18 @@ error_cleanup:
     pp_abort();
     return arg_list; /* Unreachable: pp_abort() does not return. */
 }
+
+int32_t pp_system(const pp_string_t* command) {
+    if (!command || !command->ptr) return system(NULL);
+
+    char* buffer = (char*)malloc(command->len + 1);
+    if (!buffer) return -1;
+    buffer[command->len] = '\0';
+    memcpy(buffer, command->ptr, command->len);
+
+    int ret = system(buffer);
+
+    free(buffer);
+
+    return ret;
+}
