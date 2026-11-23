@@ -158,6 +158,12 @@ uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n) {
     return write_bytes;
 }
 
+void pp_file_flush(PP_File fp) {
+    if (!fp) return;
+
+    fflush(fp);
+}
+
 int32_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence) {
     if (!fp) return -1;
     if (whence < PP_SEEK_SET || whence > PP_SEEK_END) return -1;
