@@ -164,7 +164,7 @@ void pp_file_flush(PP_File fp) {
     fflush(fp);
 }
 
-int32_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence) {
+int64_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence) {
     if (!fp) return -1;
     if (whence < PP_SEEK_SET || whence > PP_SEEK_END) return -1;
 

@@ -54,7 +54,7 @@ void pp_file_close(PP_File fp);
 uint64_t pp_file_read(PP_File fp, uint8_t* buffer, uint64_t n);
 uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n);
 void pp_file_flush(PP_File fp);
-int32_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence);
+int64_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence);
 int64_t pp_file_tell(PP_File fp);
 
 #ifdef __cplusplus
