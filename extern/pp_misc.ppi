@@ -1,0 +1,2 @@
+extern func pp_seed_unsafe_rand :: () -> void;
+extern func pp_unsafe_rand :: () -> int32;
