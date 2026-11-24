@@ -142,37 +142,37 @@ void pp_file_close(PP_File fp) {
     (void)fclose(fp);
 }
 
-uint64_t pp_file_read(PP_File fp, uint8_t* buffer, uint64_t n) {
-    if (!buffer || !fp) return 0;
+uint64_t pp_file_read(const PP_File* fp, uint8_t* buffer, uint64_t n) {
+    if (!buffer || !fp || !*fp) return 0;
     if (n == 0) return 0;
 
-    size_t read_bytes = fread(buffer, sizeof(uint8_t), n, fp);
+    size_t read_bytes = fread(buffer, sizeof(uint8_t), n, *fp);
     return read_bytes;
 }
 
-uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n) {
-    if (!buffer || !fp) return 0;
+uint64_t pp_file_write(const PP_File* fp, const uint8_t* buffer, uint64_t n) {
+    if (!buffer || !fp || !*fp) return 0;
     if (n == 0) return 0;
 
-    size_t write_bytes = fwrite(buffer, sizeof(uint8_t), n, fp);
+    size_t write_bytes = fwrite(buffer, sizeof(uint8_t), n, *fp);
     return write_bytes;
 }
 
-void pp_file_flush(PP_File fp) {
-    if (!fp) return;
+void pp_file_flush(const PP_File* fp) {
+    if (!fp || !*fp) return;
 
-    fflush(fp);
+    fflush(*fp);
 }
 
-int64_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence) {
-    if (!fp) return -1;
+int64_t pp_file_seek(const PP_File* fp, int64_t offset, PP_Whence whence) {
+    if (!fp || !*fp) return -1;
     if (whence < PP_SEEK_SET || whence > PP_SEEK_END) return -1;
 
-    return fseek(fp, offset, whence);
+    return fseek(*fp, offset, whence);
 }
 
-int64_t pp_file_tell(PP_File fp) {
-    if (!fp) return -1;
+int64_t pp_file_tell(const PP_File* fp) {
+    if (!fp || !*fp) return -1;
 
-    return ftell(fp);
+    return ftell(*fp);
 }
