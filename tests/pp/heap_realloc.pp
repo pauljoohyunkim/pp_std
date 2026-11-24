@@ -4,8 +4,8 @@ func main :: () -> int32 {
         if ((p as ptr[uint8]) == nullptr[uint8]) {
             pp_print_string("FAIL_ALLOC\n");
         } else {
-            // realloc via pointer to handle
-            let rc :: int32 = pp_alloc_bytes_reallocate(@p as ptr[PP_AllocBytes], 8ul);
+            // realloc through a mutable handle borrow: the C side updates the slot in place
+            let rc :: int32 = pp_alloc_bytes_reallocate(p, 8ul);
             if (rc == 0) {
                 pp_print_string("PASS_REALLOC\n");
             } else {

@@ -51,11 +51,12 @@ typedef uint32_t PP_File_OpenMode;
 #define PP_FOPEN_READ_APPEND 5u
 PP_File pp_file_open(const pp_string_t* str, PP_File_OpenMode mode);
 void pp_file_close(PP_File fp);
-uint64_t pp_file_read(PP_File fp, uint8_t* buffer, uint64_t n);
-uint64_t pp_file_write(PP_File fp, const uint8_t* buffer, uint64_t n);
-void pp_file_flush(PP_File fp);
-int64_t pp_file_seek(PP_File fp, int64_t offset, PP_Whence whence);
-int64_t pp_file_tell(PP_File fp);
+/* The file operations borrow the handle: PP passes `const PP_File&` as a pointer to the slot. */
+uint64_t pp_file_read(const PP_File* fp, uint8_t* buffer, uint64_t n);
+uint64_t pp_file_write(const PP_File* fp, const uint8_t* buffer, uint64_t n);
+void pp_file_flush(const PP_File* fp);
+int64_t pp_file_seek(const PP_File* fp, int64_t offset, PP_Whence whence);
+int64_t pp_file_tell(const PP_File* fp);
 
 #ifdef __cplusplus
 }
