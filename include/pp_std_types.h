@@ -18,7 +18,7 @@ typedef struct pp_string {
     uint64_t len;
 } pp_string_t;
 
-/* pp.list = { data_ptr, len, cap } (field 0: ptr, fields 1/2: i64) */
+/* pp.list = { data_ptr, len, cap, elem_size } (field 0: ptr, fields 1/2/3: i64) */
 typedef struct pp_list {
     void* data;
     uint64_t len;
