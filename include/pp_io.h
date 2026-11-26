@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include <stdio.h>
+#include <sys/types.h>
 #include "pp_std_types.h"
 
 /* Takes the string header by const reference: PP passes `const string&` as a pointer. */
@@ -37,8 +38,8 @@ typedef int32_t PP_Whence;
 
 PP_FD pp_fd_open(const pp_string_t* str, PP_FD_OpenFlags flags, int32_t mode);
 void pp_fd_close(PP_FD fd);
-int64_t pp_fd_read(PP_FD* fd, uint8_t* buf, uint64_t N);
-int64_t pp_fd_write(PP_FD* fd, const uint8_t* buf, uint64_t count);
+ssize_t pp_fd_read(PP_FD* fd, uint8_t* buf, size_t N);
+ssize_t pp_fd_write(PP_FD* fd, const uint8_t* buf, size_t count);
 int64_t pp_fd_seek(PP_FD* fd, int64_t offset, PP_Whence whence);
 
 typedef FILE* PP_File;
@@ -52,8 +53,8 @@ typedef uint32_t PP_File_OpenMode;
 PP_File pp_file_open(const pp_string_t* str, PP_File_OpenMode mode);
 void pp_file_close(PP_File fp);
 /* The file operations borrow the handle: PP passes `const PP_File&` as a pointer to the slot. */
-uint64_t pp_file_read(const PP_File* fp, uint8_t* buffer, uint64_t n);
-uint64_t pp_file_write(const PP_File* fp, const uint8_t* buffer, uint64_t n);
+size_t pp_file_read(const PP_File* fp, uint8_t* buffer, size_t n);
+size_t pp_file_write(const PP_File* fp, const uint8_t* buffer, size_t n);
 void pp_file_flush(const PP_File* fp);
 int64_t pp_file_seek(const PP_File* fp, int64_t offset, PP_Whence whence);
 int64_t pp_file_tell(const PP_File* fp);

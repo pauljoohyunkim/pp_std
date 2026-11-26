@@ -22,8 +22,8 @@ extern func pp_input_char :: () -> int32;
 handle PP_FD :: int32 drop pp_fd_close;
 extern func pp_fd_open :: (str :: const string&, flags :: PP_FD_OpenFlags, mode :: int32) -> PP_FD;
 extern func pp_fd_close :: (fd :: int32) -> void;
-extern func pp_fd_read :: (fd :: const PP_FD&, buf :: ptr[uint8], N :: uint64) -> int64;
-extern func pp_fd_write :: (fd :: const PP_FD&, buf :: ptr[const uint8], N :: uint64) -> int64;
+extern func pp_fd_read :: (fd :: const PP_FD&, buf :: ptr[uint8], N :: usize) -> isize;
+extern func pp_fd_write :: (fd :: const PP_FD&, buf :: ptr[const uint8], N :: usize) -> isize;
 extern func pp_fd_seek :: (fd :: const PP_FD&, offset :: int64, whence :: PP_Whence) -> int64;
 
 enum PP_File_OpenMode :: uint32 {
@@ -37,8 +37,8 @@ enum PP_File_OpenMode :: uint32 {
 handle PP_File :: ptr[void] drop pp_file_close;
 extern func pp_file_open :: (str :: const string&, mode :: PP_File_OpenMode) -> PP_File;
 extern func pp_file_close :: (fp :: ptr[void]) -> void;
-extern func pp_file_read :: (fp :: const PP_File&, buf :: ptr[uint8], N :: uint64) -> uint64;
-extern func pp_file_write :: (fp :: const PP_File&, buf :: ptr[const uint8], N :: uint64) -> uint64;
+extern func pp_file_read :: (fp :: const PP_File&, buf :: ptr[uint8], N :: usize) -> usize;
+extern func pp_file_write :: (fp :: const PP_File&, buf :: ptr[const uint8], N :: usize) -> usize;
 extern func pp_file_flush :: (fp :: const PP_File&) -> void;
 extern func pp_file_seek :: (fp :: const PP_File&, offset :: int64, whence :: PP_Whence) -> int64;
 extern func pp_file_tell :: (fp :: const PP_File&) -> int64;

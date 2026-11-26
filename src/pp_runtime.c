@@ -28,13 +28,13 @@ pp_list_t pp_get_argv(int32_t argc, uint8_t** argv) {
         /* Ownership moves into the list element: nullify the source so the
          * error path cannot free the same buffer twice. */
         str_arr[i].ptr = buffer;
-        str_arr[i].len = (uint64_t)arg_i_len;
+        str_arr[i].len = (size_t)arg_i_len;
         buffer = NULL;
     }
 
     arg_list.data = str_arr;
-    arg_list.len = (uint64_t)argc;
-    arg_list.cap = (uint64_t)argc;
+    arg_list.len = (size_t)argc;
+    arg_list.cap = (size_t)argc;
     arg_list.elem_size = sizeof(pp_string_t);
     str_arr = NULL; /* Ownership moved into arg_list. */
     return arg_list;

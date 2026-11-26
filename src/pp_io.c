@@ -65,7 +65,7 @@ PP_FD pp_fd_open(const pp_string_t* str, PP_FD_OpenFlags flags, int32_t mode) {
 
 void pp_fd_close(PP_FD fd) { close(fd); }
 
-int64_t pp_fd_read(PP_FD* fd, uint8_t* buf, uint64_t N) {
+ssize_t pp_fd_read(PP_FD* fd, uint8_t* buf, size_t N) {
     if (!fd || *fd < 0) return -1;
     if (!buf) return -1;
     if (N == 0) return 0;
@@ -75,7 +75,7 @@ int64_t pp_fd_read(PP_FD* fd, uint8_t* buf, uint64_t N) {
     return ret;
 }
 
-int64_t pp_fd_write(PP_FD* fd, const uint8_t* buf, uint64_t count) {
+ssize_t pp_fd_write(PP_FD* fd, const uint8_t* buf, size_t count) {
     if (!fd || *fd < 0 || !buf) return -1;
     if (count == 0) return 0;
 
@@ -142,7 +142,7 @@ void pp_file_close(PP_File fp) {
     (void)fclose(fp);
 }
 
-uint64_t pp_file_read(const PP_File* fp, uint8_t* buffer, uint64_t n) {
+size_t pp_file_read(const PP_File* fp, uint8_t* buffer, size_t n) {
     if (!buffer || !fp || !*fp) return 0;
     if (n == 0) return 0;
 
@@ -150,7 +150,7 @@ uint64_t pp_file_read(const PP_File* fp, uint8_t* buffer, uint64_t n) {
     return read_bytes;
 }
 
-uint64_t pp_file_write(const PP_File* fp, const uint8_t* buffer, uint64_t n) {
+size_t pp_file_write(const PP_File* fp, const uint8_t* buffer, size_t n) {
     if (!buffer || !fp || !*fp) return 0;
     if (n == 0) return 0;
 
